@@ -85,6 +85,7 @@ class CourseApp(QWidget):
             ("6. Dastur haqida", "00:00", True)
         ]
 
+
         lessons_layout = QHBoxLayout()
 
         left_layout = QVBoxLayout()
@@ -160,6 +161,7 @@ class CourseApp(QWidget):
         all_lessons_btn.setFixedWidth(300)
         main_layout.addWidget(all_lessons_btn, alignment=Qt.AlignCenter)
 
+
         # Statistik ma'lumotlar
         stats = [
             ("Daraja: ", "📊"),
@@ -199,8 +201,8 @@ class CourseApp(QWidget):
             """)
 
             # To‘g‘ri ulash (functools.partial ishlatish)
-            if text.strip() == "Hujjatlar:":
-                stat_button.clicked.connect(partial(self.open_documents, "Hujjatlar"))
+            if text.strip() == "Hujjatlar: 3K":
+                stat_button.clicked.connect(self.open_documents)
 
             stats_layout.addWidget(stat_button, i // 2, i % 2)
 
@@ -275,24 +277,26 @@ class CourseApp(QWidget):
                 except Exception as e:
                     QMessageBox.critical(self, "Xatolik", f"Xatolik yuz berdi: {e}")
 
+        elif lesson == "4. Tuzilish va kompozitsiya":
+            reply = QMessageBox.question(self, "Ko'rish",
+                                         f"Siz {lesson} ni belgiladingiz. Boshlaymizmi?",
+                                         QMessageBox.Yes | QMessageBox.No)
+            if reply == QMessageBox.Yes:
+                try:
+                    subprocess.Popen(["python", "tuzilish_kompozitsiya.py"])
+                except Exception as e:
+                    QMessageBox.critical(self, "Xatolik", f"Xatolik yuz berdi: {e}")
+
 
         else:
             QMessageBox.information(self, "Lesson Selected",
                                     f"{lesson} hali tayyor emas!")
 
-    def open_documents(self, stats):
-        if stats == "Hujjatlar":
-            reply = QMessageBox.question(self, "Ko'rish",
-                                         f"Siz {stats} ni belgiladingiz. Boshlaymizmi?",
-                                         QMessageBox.Yes | QMessageBox.No)
-            if reply == QMessageBox.Yes:
-                try:
-                    subprocess.Popen(["python", "hujjatlar.py"])
-                except Exception as e:
-                    QMessageBox.critical(self, "Xatolik", f"Xatolik yuz berdi: {e}")
-        else:
-            QMessageBox.information(self, "Lesson Selected",
-                                    f"{stats} hali tayyor emas!")
+    def open_documents(self):
+        try:
+            subprocess.Popen([sys.executable, 'hujjatlar.py'])
+        except Exception as e:
+            QMessageBox.critical(self, "Xatolik", f"Hujjatlar faylini ochishda xatolik yuz berdi:\n{e}")
 
 
 def main():

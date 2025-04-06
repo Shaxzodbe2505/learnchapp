@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('login.py', '.'), ('admin_panel.py', '.'), ('data.json', '.'), ('images', 'images')],
+    datas=[('images', 'images'), ('hujjatlar', 'hujjatlar'), ('data.json', '.'), ('drawings.json', '.'), ('test.json', '.'), ('videos.json', '.'), ('tuzilish_kompozitsiya.py', '.'), ('introduction.py', '.'), ('test_uchun.py', '.'), ("video_qo'llanmalar.py", '.'), ('login.py', '.'), ('admin_panel.py', '.'), ('hujjatlar.py', '.'), ('server.py', '.'), ('mashgulotlar.py', '.'), ('proba.py', '.'), ('chasos.py', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
